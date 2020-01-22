@@ -1,0 +1,152 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+\pdfminorversion=4
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amsmath}    			% ams packages for mathematics environment    
+\usepackage{amssymb}
+\usepackage{amsfonts}
+%\usepackage{amsthm}
+\usepackage{balance}
+\usepackage{graphicx}  				% Versatile graphics manipulation options
+
+\usepackage[croatian]{babel}  % Croatian typographical rules and hyphenation patterns 
+\usepackage[utf8]{inputenc}  	% Encoding of Croatian characters
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}     	% Type 1 fonts, similar to Computer Modern
+
+\usepackage{microtype}				% Improves spacing
+
+\usepackage{hyperref}
+%\usepackage{subfig}
+\usepackage{subcaption}
+\captionsetup[figure]{labelsep=period}
+\captionsetup[subfigure]{labelformat=simple} % default is 'parens'
+\renewcommand\thesubfigure{Fig. \thefigure.\alph{subfigure})}
+\usepackage{tabularx}
+\usepackage{booktabs}
+%\newcolumntype{C}{>{\centering\arraybackslash}X} % centered version of "X" type
+\setlength{\extrarowheight}{1pt}
+\usepackage{enumerate}				% Additional options for listing of items in enumerate environment
+\usepackage{algorithm2e}			% Writing pseudo-code
+\usepackage{todonotes}				% Adding todo items
+\usepackage{dirtree}					% Simple display of directory tree
+\usepackage{hyperref}					% Managing cross-referencing
+
+
+\usepackage{hhline}
+\usepackage{caption}
+\usepackage{lmodern}
+\usepackage{nccmath}
+%\usepackage[keeplastbox]{flushend}
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+	\savestack{\tmpbox}{\stretchto{%
+			\scaleto{%
+				\scalerel*[\widthof{\ensuremath{#1}}]{\kern.1pt\mathchar"0362\kern.1pt}%
+				{\rule{0ex}{\textheight}}%WIDTH-LIMITED CIRCUMFLEX
+			}{\textheight}% 
+		}{2.4ex}}%
+	\stackon[-6.9pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+% highlighting
+\usepackage{soul}
+\usepackage{color}
+
+\usepackage{graphicx}
+\usepackage{transparent}
+
+\definecolor{reviewer1}{rgb}{0.235, 0.471, 0.847}
+\definecolor{reviewer2}{rgb}{0.416, 0.659, 0.31}
+\definecolor{reviewer3}{rgb}{0.902, 0.568, 0.22}
+\definecolor{redc}{rgb}{1.0, 0, 0}
+\DeclareRobustCommand{\hlrevone}[1]{{\textcolor{reviewer1}{#1}}}
+\DeclareRobustCommand{\hlrevtwo}[1]{{\textcolor{reviewer2}{#1}}}
+\DeclareRobustCommand{\hlrevthree}[1]{{\textcolor{reviewer3}{#1}}}
+\DeclareRobustCommand{\hlremove}[1]{{\textcolor{redc}{#1}}}
+
+%calligraphy packages
+\usepackage{calrsfs}
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+\newcommand{\Ca}{\pazocal{C}}
+\newcommand{\Oa}{\pazocal{O}}
+\newcommand{\Va}{\pazocal{V}}
+\newcommand{\Ua}{\pazocal{U}}
+\newcommand{\Aa}{\pazocal{A}}
+\newcommand{\Ta}{\pazocal{T}}
+\newcommand{\La}{\pazocal{L}}
+\newcommand{\Ja}{\pazocal{J}}
+
+\graphicspath{{./figures/}}
+\usepackage{float}
+\usepackage{multicol}
+\title{\LARGE \bf
+State-of-the-Art Survey of Manifold Based Control Methods for Unmanned Aerial Vehicles
+}
+\author{Lovro Markovic \\
+	University of Zagreb, Faculty of Electrical Engineering and Computing \\
+	Laboratory for Robotics and Intelligent Control Systems (LARICS) \\
+	Unska 3, 10000 Zagreb \\
+	Email: lovro.markovic@fer.hr
+}
+
+\makeatletter
+\newcommand{\removelatexerror}{\let\@latex@error\@gobble}
+\newcommand{\mb}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\makeatother
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+This paper presents a survey of manifold based control methods for unmanned aerial vehicles (UAVs). 
+Computational geometric mechanics and passive decomposition are the two general frameworks, with an embedded manifold structure, used as a starting point in this paper. Although notions of these frameworks can be applied on any rigid body, this survey is limited to exploring research mainly relating to UAVs. These frameworks are used to tackle a wide variety of problems. The former solves issues of trajectory tracking, robust control, cooperative-load transportation etc. while the latter mainly concerns with environment interaction, exploration and teleoperation. State-of-the-art survey of the mentioned frameworks and their applications is presented in the remainder of this paper.
+\end{abstract}
+
+\input{content/introduction.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{APPENDIX} \label{sec:appendix}
+%\input{content/appendix.tex}
+
+%Appendixes should appear before the acknowledgment.
+
+\section*{ACKNOWLEDGMENT}
+
+This research was supported by European Commission Horizon 2020 Programme through project under G. A. number 810321, named Twinning coordination action for spreading excellence in Aerial Robotics - AeRoTwin \cite{AEROTWINweb} and through project under G. A. number 820434, named ENergy aware BIM Cloud Platform in a COst-effective Building REnovation Context - ENCORE \cite{ENCOREweb}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{bibliography/Mendeley}
+\end{document}
