@@ -1,3 +1,83 @@
 \section{Geometric Mechanics and Control} \label{section:geometric_mechanics}
 
-Geometric control concept is well known in aerial robotics community, and has previously been applied for classic quadrotor vehicles in \cite{LeeClanak4}, \cite{LeeClanak3}, \cite{LeeClanak1}, \cite{Kumar}. The UAV is considered to be in plus configuration (body-fixed frame is aligned with UAV arms) and the CoG coincides with the body of the UAV. Furthermore, the model of the UAV is augmented with the CoG dynamics so we can exploit manipulator movement for attitude tracking. In our previous work we designed and implemented the Moving Mass Control concept (MMC) \cite{movingMass1}. In that paper we use a standard quadrotor UAV with mounted moving masses on the arms of the UAV while the control structure uses standard PID blocks. This is a novel concept first developed in \cite{movingMass2} with attitude control considered in \cite{movingMass3}. Up to this point, nonlinear geometric control has not been applied to the moving-mass controlled UAV.
+\subsection{Trajectory Tracking}
+Geometric control for quadrotor UAVs is first introduced by T. Lee et al. 2010. \cite{LeeClanak4} by presenting a trajectory tracking controller on the SE(3) configuration manifold. Underlying implementation is a proportional-derivative controller with additional nonlinear terms used to cancel the unfavorable dynamics which present themselves during the Lyapunov stability analysis. Starting point for the geometric controller synthesis is the rotating rigid body Lagrangian dynamics equations as follows:
+\begin{gather}
+m \ddot{\textbf{x}} + m g\textbf{e}_3 = f\text{R}\textbf{e}_3 \label{model1} \\
+\text{J}\dot{\mb{\Omega}} + \mb{\Omega} \times \text{J}\mb{\Omega} = \textbf{M} \label{model2} \\
+\dot{\text{R}} = \text{R}\reallywidehat{\mb{\Omega}} \label{model3}
+\end{gather}
+\noindent \textit{Hat map} and \textit{vee map} operators are defined as:
+\begin{gather}
+\reallywidehat{ \boldsymbol{\cdot} }: \; \mathbb{R}^3 \mapsto \mathfrak{so}(3), \label{eqn:hat} \\
+{ \boldsymbol{\cdot} }^\vee: \; \mathfrak{so}(3) \mapsto \mathbb{R}^3 \label{eqn:vee}
+\end{gather}
+respectively. \\
+\noindent It should be pointed out that the notation used for the Special Orthogonal Lie group is SO(3), while its corresponding Lie algebra is denoted by $\mathfrak{so}$(3).
+
+\noindent The following terms are defined as:
+
+\begin{itemize}
+	\item $\text{J} \in \mathbb{R}^{3 \times 3}$ - Moment of inertia matrix w.r.t. the body-fixed frame
+	
+	\item $\text{R} \in \text{SO}(3)$ - Rotation matrix from the body fixed frame to the inertial frame
+	
+	\item $\mb{\Omega} \in \mathbb{R}^3$ - Angular velocity in the body-fixed frame
+	
+	\item $\textbf{x} \in \mathbb{R}^3$ - Location of the body-fixed frame in the inertial frame
+	
+	\item $\textbf{v} \in \mathbb{R}^3$ - Velocity of the body-fixed frame in the inertial frame
+	
+	\item $f \in \mathbb{R}$ - Total thrust produced by the UAV
+	
+	\item $\textbf{M} \in \mathbb{R}^3$ - Total moments acting in the body-fixed frame
+\end{itemize}
+
+\noindent Utilizing the Lyapunov stability analysis of SE(3) configuration errors appropriate control terms for force $f$ and moments \textbf{M} are derived. In order to translate control force and moments to rotational velocities $\omega_i$ the following relations are employed.
+\begin{gather}
+f_i = b_f \omega_{i}^2 \label{force}\\
+\tau_i = (-1)^i b_m f_i \, ,
+\end{gather}
+\noindent where the following terms are defined as:	
+\begin{itemize}
+	\item $f_i \in \mathbb{R}$ - Thrust of the i-th motor
+	
+	\item $\tau_i \in \mathbb{R}$ - Moment i-th motor produces
+	
+	\item $b_f \in \mathbb{R}$ - Motor thrust constant
+	
+	\item $b_m \in \mathbb{R}$ - Motor moment constant
+	
+	\item $\omega_i \in \mathbb{R}$ - Rotation velocity of the i-th rotor
+\end{itemize}
+Total thrust can therefore be expressed as:
+\begin{equation}
+f = \sum_{1}^{4}f_i \, , \label{control:f}
+\end{equation}
+
+\noindent Rotor velocities $\omega_i$ and system control inputs ($f$, \textbf{M}) are related using the well known control allocation matrix for cross configuration quadrotors.
+\begin{equation}
+       \begin{bmatrix}
+               f \\
+               M_x \\
+               M_y \\
+               M_z
+       \end{bmatrix} = 
+       \begin{bmatrix}
+               b_f     &       b_f     &       b_f     &       b_f     \\
+               0       &       b_f l   &       0       & -b_f l \\
+               -b_f l  &       0       &       b_f l   &       0       \\
+               b_m b_f &       -b_m b_f        & b_m b_f       & -b_m b_f
+       \end{bmatrix} \,
+       \begin{bmatrix}
+               \omega_1 \\
+               \omega_2 \\
+               \omega_3 \\
+               \omega_4
+       \end{bmatrix} \, ,
+\end{equation}
+\noindent Similar control allocation matrices can be derived for other multirotor UAV configurations.
+
+Another trajectory tracking controller is presented by T. Lee et al. 2011. \cite{LeeClanak3}. Although similar in approach to the original implementation, this controller introduces a quadrotor model with bounded uncertainties in model dynamics, specifically Eqn. \ref{model1} and \ref{model2}. It can be shown that despite the introduced uncertainties the synthesized tracking controller is robust and the errors are uniformly bounded. The bound can be arbitrarily reduced by control system parameters. 
+
+%Geometric control concept is well known in aerial robotics community, and has previously been applied for classic quadrotor vehicles in \cite{LeeClanak4}, \cite{LeeClanak3}, \cite{LeeClanak1}, \cite{Kumar}. The UAV is considered to be in plus configuration (body-fixed frame is aligned with UAV arms) and the CoG coincides with the body of the UAV. Furthermore, the model of the UAV is augmented with the CoG dynamics so we can exploit manipulator movement for attitude tracking. In our previous work we designed and implemented the Moving Mass Control concept (MMC) \cite{movingMass1}. In that paper we use a standard quadrotor UAV with mounted moving masses on the arms of the UAV while the control structure uses standard PID blocks. This is a novel concept first developed in \cite{movingMass2} with attitude control considered in \cite{movingMass3}. Up to this point, nonlinear geometric control has not been applied to the moving-mass controlled UAV.
