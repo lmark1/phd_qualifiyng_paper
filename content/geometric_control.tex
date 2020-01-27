@@ -1,6 +1,5 @@
 \section{Geometric Mechanics and Control} \label{section:geometric_mechanics}
 
-\subsection{Trajectory Tracking}
 Geometric control for quadrotor UAVs is first introduced by T. Lee et al. 2010. \cite{LeeClanak4} by presenting a trajectory tracking controller on the SE(3) configuration manifold. Underlying implementation is a proportional-derivative controller with additional nonlinear terms used to cancel the unfavorable dynamics which present themselves during the Lyapunov stability analysis. Starting point for the geometric controller synthesis is the rotating rigid body Lagrangian dynamics equations as follows:
 \begin{gather}
 m \ddot{\textbf{x}} + m g\textbf{e}_3 = f\text{R}\textbf{e}_3 \label{model1} \\
@@ -78,6 +77,29 @@ f = \sum_{1}^{4}f_i \, , \label{control:f}
 \end{equation}
 \noindent Similar control allocation matrices can be derived for other multirotor UAV configurations.
 
-Another trajectory tracking controller is presented by T. Lee et al. 2011. \cite{LeeClanak3}. Although similar in approach to the original implementation, this controller introduces a quadrotor model with bounded uncertainties in model dynamics, specifically Eqn. \ref{model1} and \ref{model2}. It can be shown that despite the introduced uncertainties the synthesized tracking controller is robust and the errors are uniformly bounded. The bound can be arbitrarily reduced by control system parameters. 
+Another trajectory tracking controller is presented by T. Lee et al. 2011. \cite{LeeClanak3}. Although similar to the original implementation, this controller introduces a quadrotor model with bounded uncertainties in model dynamics, specifically in Eqn. \ref{model1} and \ref{model2}. It can be shown that despite the introduced uncertainties the synthesized tracking controller is robust and the errors are uniformly bounded. The bound can be arbitrarily reduced by control system parameters. 
 
-%Geometric control concept is well known in aerial robotics community, and has previously been applied for classic quadrotor vehicles in \cite{LeeClanak4}, \cite{LeeClanak3}, \cite{LeeClanak1}, \cite{Kumar}. The UAV is considered to be in plus configuration (body-fixed frame is aligned with UAV arms) and the CoG coincides with the body of the UAV. Furthermore, the model of the UAV is augmented with the CoG dynamics so we can exploit manipulator movement for attitude tracking. In our previous work we designed and implemented the Moving Mass Control concept (MMC) \cite{movingMass1}. In that paper we use a standard quadrotor UAV with mounted moving masses on the arms of the UAV while the control structure uses standard PID blocks. This is a novel concept first developed in \cite{movingMass2} with attitude control considered in \cite{movingMass3}. Up to this point, nonlinear geometric control has not been applied to the moving-mass controlled UAV.
+In \cite{LeeClanak1} and \cite{manuvresGeometric} the default concept of a geometric controller is tested against complex trajectories, such as recovering from an upside down initial position. The controller proved versatile and exhibited almost global asymptotic stability. 
+
+An adaptive geometric controller based on the L1 adaption control law is presented in \cite{Kotaru2019GeometricLA}. A model reference adaptive approach is implemented, with the attitude errors between the quadrotor model and the reference model defined on the manifold. Control laws for the quadrotor and reference models are developed directly on SO(3) to track the desired trajectory while rejecting the uncertainties. Control Lyapunov function based analysis is used to show the exponential input-to-state stability of the attitude errors.
+
+Generally, in the geometric controller, two attitude gains must be provided appropriately to achieve stable error dynamics. The authors in \cite{Lee2019} presented a solution to optimize the controller performance. An Asynchronous Advantage Actor-Critic (A3C) reinforcement learning approach is applied in order to reduce the effort of manual trial-and-error tuning methods. 
+
+The research presented so far considered the quadrotor UAV to be in plus configuration (body-fixed frame aligned with UAV arms) and the center of gravity (CoG) coinciding with the UAV body. However, a novel UAV configuration with dynamic CoG first presented in \cite{movingMass1} and \cite{movingMass2} with initial attitude control structure considered in \cite{movingMass3}. Geometric controller was first implemented for such case in \cite{Markovic2019} using moving masses and a manipulator carrying payload to achieve variations in CoG. A different model is proposed to accommodate changes in CoG and control terms were chosen to achieve exponential stability using Lyapunov functions.
+\begin{figure}[H]
+	\includegraphics[width=0.8\columnwidth]{figure/uav.png}	
+	\centering
+	\caption{The $\text{figure}^{\cite{Markovic2019}}$ shows two UAVs endowed with variable moving masses (left) and manipulator carried payload (right). Both UAV concepts are able to offset their center of gravity outside the origin of their body-fixed frame $\{\textbf{b}_1, \textbf{b}_2, \textbf{b}_3\}$. The inertial frame is depicted as $\{\textbf{e}_1, \textbf{e}_2, \textbf{e}_3\}$.  }
+	\label{fig:uav_model}
+\end{figure}
+
+Another widespread application of the geometric controller are payload transportation tasks. Originally introduced by T. Lee and V. Kumar 2013. \cite{cable-load1}, variations of the concept with multiple quadrotors carrying a payload was presented in \cite{cable-load-multiple} and \cite{Lee2014GeometricCO}. Quadrotor with a flexible cable model and attached load was presented in \cite{tethered-quadrotor}, \cite{flexible-cable}, \cite{flexible-cable-dynamics} and \cite{stabilization-flexible-cable}. Adaptive control along with unknown mass variations are presented in  \cite{rigid-body-transport} and \cite{unknown-mass-transport} respectively.
+The overarching idea between all the mention papers considers an underactuated coordinate-free dynamic model of a quadrotor with a cable-suspended load defined on the configuration manifold SE(3)$\times\text{S}^2$, where $\text{S}^2 = \{\textbf{x} \in \mathbb{R}^{3} \,:\, \lVert \textbf{x} \rVert = r \}$. Coordinate-free approach is once again utilized to avoid singularities and complexities that are associated with local parameterizations. A nonlinear geometric control design is developed, that enables tracking of outputs defined by quadrotor and load attitude as well as position of the load. 
+
+\begin{figure}[H]
+	\includegraphics[width=\columnwidth]{figure/payload_carrying.png}	
+	\centering
+	\caption{This $\text{figure}^{\cite{Lee2014GeometricCO}}$ represents multiple quadrotor UAVs carrying a single rigid-body load via cables. Cable are defined in $\text{S}^2$ - spherical configuration while the UAV remains in SE(3). The underlying coupled system mechanics, therefore, evolve on an SE(3)$\times\text{S}^2$ configuration manifold. }
+	\label{fig:load_carrying}
+\end{figure}
+
