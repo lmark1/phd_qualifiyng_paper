@@ -87,7 +87,7 @@ Generally, in the geometric controller, two attitude gains must be provided appr
 
 The research presented so far considered the quadrotor UAV to be in plus configuration (body-fixed frame aligned with UAV arms) and the center of gravity (CoG) coinciding with the UAV body. However, a novel UAV configuration with dynamic CoG first presented in \cite{movingMass1} and \cite{movingMass2} with initial attitude control structure considered in \cite{movingMass3}. Geometric controller was first implemented for such case in \cite{Markovic2019} using moving masses and a manipulator carrying payload to achieve variations in CoG. A different model is proposed to accommodate changes in CoG and control terms were chosen to achieve exponential stability using Lyapunov functions.
 \begin{figure}[H]
-	\includegraphics[width=0.8\columnwidth]{figure/uav.png}	
+	\includegraphics[width=0.85\columnwidth]{figure/uav.png}	
 	\centering
 	\caption{The $\text{figure}^{\cite{Markovic2019}}$ shows two UAVs endowed with variable moving masses (left) and manipulator carried payload (right). Both UAV concepts are able to offset their center of gravity outside the origin of their body-fixed frame $\{\textbf{b}_1, \textbf{b}_2, \textbf{b}_3\}$. The inertial frame is depicted as $\{\textbf{e}_1, \textbf{e}_2, \textbf{e}_3\}$.  }
 	\label{fig:uav_model}
