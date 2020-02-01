@@ -35,7 +35,7 @@ The tangential and perpendicular spaces are defined respectively:
 	\text{T}_q^\top\Ma := span \{v \in \text{T}_q\Ma \, \vert \, h_*(v) = 0\}  \\
 	\text{T}_q^\perp\Ma := span \{w \in \text{T}_q\Ma \, \vert \, \langle \langle v, w \rangle \rangle, \, \forall v \in \text{T}_q^\top \Ma  \}, 
 \end{gather}
-where $h_*: \text{T}_q\Ma \rightarrow \text{T}_{h(q)}\Na$ is the push-forward of the coordination map. \\
+where $h_*: \text{T}_q\Ma \rightarrow \text{T}_{h(q)}\Na$ is a push-forward of the coordination map. \\
 By applying the orthogonal decomposition to the model dynamics we are able to decouple the shape and locked dynamics, while applying a control law cancel the coupling which essentially sums up the notion of passive-decomposition.
 
 A concrete application of the passive-decomposition concepts on a UAV system can be found in \cite{passive-decomp-quadrotor-with-robotic-manip}. The authors show that the Lagrange dynamics of quadrotor-manipulator systems can be completely decoupled into: the center-of-mass dynamics in E(3), which, similar to the standard quadrotor dynamics, is point-mass dynamics with under-actuation  and  gravity  effect; the  “internal rotational” dynamics  of  the  quadrotor’s  rotation  and  manipulator configuration, which assumes the form of standard Lagrange dynamics  of  robotic manipulator with full-actuation and nogravity effect.  
@@ -52,14 +52,31 @@ Simulink environment and tested using the highly nonlinear system model in simul
 The controller robustness is checked by applying disturbance forces from different 
 directions at the tip point of the 2-DOF robotic arm.
 
-In \cite{passivity-backstepping}  a novel unified passivity-based adaptive backstepping control framework is proposed for ‘mixed’ quadrotor UAVs. Which consists of the translation dynamics with thrust force input and the attitude kinematics with the angular velocity input evolving on SE(3). Its application to haptic teleoperation over the Internet is also presented with dynamic-extension like filter to address discontinuous communication and a complete stability/collision-avoidance analysis is provided.
+In \cite{passivity-backstepping}  a novel unified passivity-based adaptive backstepping control framework is proposed for ‘mixed’ quadrotor UAVs. It consists of the translation dynamics with thrust force input and the attitude kinematics with the angular velocity input evolving on SE(3). Its application to haptic teleoperation over the Internet is also presented with dynamic-extension like filter to address discontinuous communication and a complete stability/collision-avoidance analysis is provided.
 
-\cite{passivity-based-formation-load}
-\cite{passive-variable-impedance-compliant} 
-\cite{max-wrench-min-energy} 
-\cite{quadrotor-itneraction-environment} 
-\cite{passivity-based-payload-minimum-swing} 
-\cite{passivity-based-crop} 
-\cite{payload-and-human}
+As it was the case with geometric control methods, there are a multitude of applications of passivity-based control on payload carrying and transportation. In \cite{passivity-based-formation-load} the authors propose a strategy consisting of internal feedback control for each UAV and a general formation control law regulating relative positions between each UAV pair. It is proven that under such control strategy the system is stable for all equilibrium points where the cables supporting the suspended load are in tension. \\
+\noindent Furthermore, the authors in \cite{passivity-based-payload-minimum-swing} present the Euler-Lagrange formulation quadrotor, cable and payload system. An Interconnection and Damping Assignment-Passivity Based Control (IDA-PBC) for a quadrotor UAV transporting a cable-suspended payload is developed. The designed method does not depend on the swing angle of the cable. Main control objective shown was to transport the payload from point to point, with swing suppression along the desired trajectory. \\ 
+It is worth mentioning the research done in \cite{payload-and-human}. A novel concept of master-slave strategy is implemented where the  master  quadrotor  is  controlled  by a human  and  the slave quadrotor tries to stabilize the oscillations of the payload. Two  UAVs with a cable-suspended  payload  is an under-actuated system with coupled dynamics, therefore manual control is proven difficult. A Lyapunov based  controller is designed to  minimize  the  oscillations  of  the  payload while  transportation,  leading  to  an  easier  manual  control  of master quadcopter.
+
+As previously mentioned, one of the main motivations for implementing passive decomposition on UAV systems is to achieve compliant behavior. Research in \cite{passive-variable-impedance-compliant} concerns the notion of passivity-based compliant control methods. The authors introduce a novel scheme, termed Passivity-Preservation Control (PPC), which suppresses the energy injections that could be introduced into compliant robots, as a result of Variable Impedance Control (VIC). Although the presented controller is used with manipulators, this research is still worth mentioning as generally the notion of aerial compliance implies a manipulator endowed UAV. \\
+Regarding quadrotors interacting with the environment, in \cite{quadrotor-itneraction-environment} a novel method for applying a wrench while flying is proposed. Inspired by the use of contacts in legged robots, the authors present an idea of exploiting physical contact with the environment, with the goal of going beyond the common thought that the surrounding environment is a constraint to avoid. \\
+An energy conservative approach to maximum wrench generation by a fully actuated aerial robot is presented in \cite{max-wrench-min-energy}. Two different approaches for designing the rotor tilt angles of a fully actuated aerial robot are presented in this paper. A common approach is based on maximizing the forces and torques the robot can generate. To determine the tilt angles, simple knowledge of the maximum required wrench is necessary. Another approach focuses on following an a priori defined trajectory with minimum energy consumption, taking advantage of the nonlinear power-thrust characteristic of a real propeller. For this purpose, complex knowledge of the complete trajectory is necessary, especially for rotors with fixed orientation.   \\
+A passivity-based control of a fully actuated UAV for aerial physical interaction near hovering is presented in \cite{passivity-based-physical-interaction}. A unified near-hovering motion and impedance controller is derived by the energy-balancing passivity-based control technique. A detailed analysis of the closed-loop system’s behavior  is presented for both the free-flight and contact stability of the UAV. Robustness of the control system to uncertainties is validated by several experiments, in which the UAV is controlled 5near its actuator limits.
+
+\cite{passivity-based-aerial-interaction} \todo[inline]{TODO:}
+
+\begin{figure}[H]
+	\includegraphics[width=0.95\columnwidth]{figure/passivity-based-interaction.png}	
+	\centering
+	\caption{This $\text{figure}^{\cite{passivity-based-physical-interaction}}$ represents a fully-actuated hexarotor UAV hovering with one rotor off and applying ~10N of force to a verticl surface rigidly connected to a force sensor.}
+	\label{fig:aerial_compliance}
+\end{figure}
+
 \cite{door-opening}
-\cite{passivity-based-physical-interaction}
+
+\todo[inline]{TODO: cite all inspection methods} 
+ \cite{ref:corosion-inspection}\cite{ref:inspection-overview}\cite{Ollero2018} \cite{ref:sar}  \cite{ref:lidar-equipped-model-building}
+
+\cite{passivity-based-crop} 
+\cite{cooperative-control-quadrotor}
+\cite{haptic-teleoperation-uav}
