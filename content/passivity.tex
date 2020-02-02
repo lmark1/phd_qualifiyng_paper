@@ -78,9 +78,18 @@ Another example of aerial interaction is research presented in \cite{passivity-b
 
 Lastly, it's worth mentioning an ongoing research project \cite{door-opening}. The authors set a goal of autonomous door opening with the Interacting-BoomCopter (I-BC) UAV. This paper presents the design of a light-weight, compliant end-effector and an image processing strategy that together enable the I-BC UAV to perform the task. 
 
+\begin{figure}[H]
+	\includegraphics[width=0.95\columnwidth]{figure/BoomCopter.jpg}	
+	\centering
+	\caption{This $\text{figure}^{\cite{door-opening}}$ shows the \textit{BoomCopter} design by the RoSeHUB Research Laboratory at Purdue University. Equipped with boom-prop assembly it is able to perform various tasks physically interacting with environment, such as opening doors. }
+	\label{fig:boom_copter}
+\end{figure}
+
 \subsection{Inspection Tasks}
 
-Endowed with various sensor suites, tasks such as surveillance, inspection \cite{ref:corosion-inspection}\cite{ref:inspection-overview}\cite{Ollero2018}, search and rescue \cite{ref:sar}, 3D mapping \cite{ref:lidar-equipped-model-building}, etc. are well within their operational reach.
+Endowed with various sensor suites, tasks such as surveillance, inspection \cite{ref:corosion-inspection}\cite{ref:inspection-overview}\cite{Ollero2018}, search and rescue \cite{ref:sar}, 3D mapping \cite{ref:lidar-equipped-model-building}, etc. are well within  the operational reach.
+
+In \cite{passivity-based-crop} the development of a passivity based visual servoing controller with dynamics compensation for the tracking of roads is presented. The proposed system allows the autonomous navigation of a UAV on straight lines such as those found in areas of structured crops. The stability of the controller is shown in the context of the input-output theory and based on the passivity properties of the system.
 
 \begin{figure}[H]
 	\centering
@@ -89,9 +98,12 @@ Endowed with various sensor suites, tasks such as surveillance, inspection \cite
 	\label{fig:drone-flight}
 \end{figure}
 
-In \cite{passivity-based-crop} the development of a passivity based visual servoing controller with dynamics compensation for the tracking of roads is presented. The proposed system allows the autonomous navigation of a UAV on straight lines such as those found in areas of structured crops. The stability of the controller is shown in the context of the input-output theory and based on the passivity properties of the system.
 
 \subsection{Other Notable Contributions}
+The paper \cite{passivity-attitude-sync} addresses passivity-based motion coordination of rigid bodies in the special Euclidean group SE(3) under the assumption that the agents exchange information over strongly connected graphs. A passivity-based distributed velocity input law to achieve attitude synchronization is developed. Using the notion of algebraic connectivity, a connection between the speed of convergence and the structure of the interconnection graph is established. Attitude synchronization in the leader-follower case and in the cases of communication delay and temporary communication failures is subsequently proven.
+
 A hierarchical cooperative control framework for multiple quadrotor-manipulator systems is presented in \cite{cooperative-control-quadrotor}. It allows the endowment of a common grasped object with a user-specified desired behavior (e.g., trajectory tracking, compliant interaction, etc.). To achieve  this,  our  control  framework  con-sists  of  the  following  hierarchical  layers: 1) object desired behavior design; 2) optimal cooperative force distribution; 3)individual quadrotor-manipulator control based on object stiffness model, which can also take into account different dynamics characteristics of the (slower/coarser) quadrotor-platform and the (faster/finer) manipulator.
+
+In \cite{group-teleoperation} an experimental validation of a novel decentralized passivity-based control strategy for teleoperating a group of Unmanned Aerial Vehicles (UAVs) is presented. The slave side, consisting of the UAVs, is endowed with large group autonomy by allowing time-varying topology and interrobot/obstacle collision avoidance. The master side, represented by a human operator, controls the group motion and receives suitable force feedback cues informing her/him about the remote slave motion status. Passivity theory is exploited for guaranteeing stability of the slave side and of the overall teleoperation channel.
 
 A semi-autonomous haptic teleoperation control architecture for multiple UAVs is presented in \cite{haptic-teleoperation-uav}. It consist of three control layers: 1) UAV control layer where each UAV is abstracted and controlled to follow the trajectory of, its own kinematic Cartesian virtual point (VP); 2) VP control layer, which modulates each VP’s motion according to the teleoperation commands and local artificial potentials (for VP–VP/VP-obstacle collision avoidance and VP–VP connectivity preservation); and 3) teleoperation layer, through which a single remote human user can command all (or some) of the VPs’ velocity while haptically perceiving the state of all (or some) of the UAVs and obstacles. Master passivity/slave stability and some asymptotic performance measures are proven. 
